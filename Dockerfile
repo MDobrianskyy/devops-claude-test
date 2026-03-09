@@ -18,8 +18,9 @@ WORKDIR /app
 # Copy installed packages from builder
 COPY --from=builder /install /usr/local
 
-# Copy application code
+# Copy application code and fix permissions
 COPY app.py .
+RUN chown -R appuser:appgroup /app
 
 # Drop privileges
 USER appuser
