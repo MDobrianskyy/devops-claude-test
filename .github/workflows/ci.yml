@@ -1,0 +1,25 @@
+name: CI — Build Docker Image
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t devops-claude-test .
+
+      - name: Test app starts
+        run: |
+          docker run -d --name test-app -p 5050:5050 devops-claude-test
+          sleep 5
+          curl --fail http://localhost:5050/
+          docker stop test-app
