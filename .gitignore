@@ -1,0 +1,10 @@
+# Environment variables — НІКОЛИ не пушити
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS
+.DS_Store
