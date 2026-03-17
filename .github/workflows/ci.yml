@@ -45,7 +45,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository_owner | lower }}/devops-claude-test:latest
+          tags: ghcr.io/mdobrianskyy/devops-claude-test:latest
 
   deploy:
     runs-on: ubuntu-latest
