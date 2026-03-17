@@ -24,9 +24,32 @@ jobs:
           curl --fail http://localhost:5050/
           docker stop test-app
 
-  deploy:
+  publish:
     runs-on: ubuntu-latest
     needs: build
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/devops-claude-test:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: publish
     if: github.ref == 'refs/heads/main'
 
     steps:
