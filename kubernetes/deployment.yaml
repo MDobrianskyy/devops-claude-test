@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shopua-app
+  labels:
+    app: shopua
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: shopua
+  template:
+    metadata:
+      labels:
+        app: shopua
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: shopua
+          image: ghcr.io/mdobrianskyy/devops-claude-test:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5050
+          env:
+            - name: FLASK_ENV
+              value: "production"
