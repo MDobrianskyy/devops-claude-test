@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+data:
+  FLASK_ENV: {{ .Values.config.flaskEnv | quote }}
+  APP_MESSAGE: {{ .Values.config.appMessage | quote }}

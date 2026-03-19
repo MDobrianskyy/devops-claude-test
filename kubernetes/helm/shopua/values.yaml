@@ -1,0 +1,20 @@
+replicaCount: 2
+
+image:
+  repository: ghcr.io/mdobrianskyy/devops-claude-test
+  tag: latest
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: ghcr-secret
+
+service:
+  port: 80
+  targetPort: 5050
+
+config:
+  flaskEnv: "production"
+  appMessage: "ShopUA — running in Kubernetes!"
+
+secret:
+  secretKey: "shopua-super-secret-key-change-in-prod"
